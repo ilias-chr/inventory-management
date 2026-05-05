@@ -19,7 +19,7 @@
           </div>
           <div class="trend-items">
             <div v-for="item in getForecastsByTrend('increasing').slice(0, 5)" :key="item.id" class="trend-item">
-              <span class="item-name">{{ item.item_name }}</span>
+              <span class="item-name">{{ translateProductName(item.item_name) }}</span>
               <span class="item-change">+{{ getChangePercent(item) }}%</span>
             </div>
             <div v-if="getForecastsByTrend('increasing').length > 5" class="more-items">
@@ -38,7 +38,7 @@
           </div>
           <div class="trend-items">
             <div v-for="item in getForecastsByTrend('stable').slice(0, 5)" :key="item.id" class="trend-item">
-              <span class="item-name">{{ item.item_name }}</span>
+              <span class="item-name">{{ translateProductName(item.item_name) }}</span>
               <span class="item-change neutral">{{ getChangePercent(item) }}%</span>
             </div>
             <div v-if="getForecastsByTrend('stable').length > 5" class="more-items">
@@ -57,7 +57,7 @@
           </div>
           <div class="trend-items">
             <div v-for="item in getForecastsByTrend('decreasing').slice(0, 5)" :key="item.id" class="trend-item">
-              <span class="item-name">{{ item.item_name }}</span>
+              <span class="item-name">{{ translateProductName(item.item_name) }}</span>
               <span class="item-change">{{ getChangePercent(item) }}%</span>
             </div>
             <div v-if="getForecastsByTrend('decreasing').length > 5" class="more-items">
@@ -87,7 +87,7 @@
             <tbody>
               <tr v-for="forecast in forecasts" :key="forecast.id">
                 <td><strong>{{ forecast.item_sku }}</strong></td>
-                <td>{{ forecast.item_name }}</td>
+                <td>{{ translateProductName(forecast.item_name) }}</td>
                 <td>{{ forecast.current_demand }}</td>
                 <td><strong>{{ forecast.forecasted_demand }}</strong></td>
                 <td>
@@ -119,7 +119,7 @@ import { useI18n } from '../composables/useI18n'
 export default {
   name: 'Demand',
   setup() {
-    const { t } = useI18n()
+    const { t, translateProductName } = useI18n()
     const loading = ref(true)
     const error = ref(null)
     const allForecasts = ref([])
@@ -217,7 +217,8 @@ export default {
       getForecastsByTrend,
       getChangePercent,
       getChangeColor,
-      translatePeriod
+      translatePeriod,
+      translateProductName
     }
   }
 }

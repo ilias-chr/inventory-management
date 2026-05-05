@@ -134,7 +134,7 @@ import { formatCurrency } from '../utils/currency'
 export default {
   name: 'Reports',
   setup() {
-    const { t, currentCurrency, currentLocale } = useI18n()
+    const { t, currentCurrency } = useI18n()
     const { selectedPeriod, selectedLocation, selectedCategory, getCurrentFilters } = useFilters()
 
     const loading = ref(true)
@@ -209,7 +209,7 @@ export default {
 
     const getChangeValue = (current, previous) => {
       const change = current - previous
-      const formatted = formatCurrency(Math.abs(change), selectedCurrency.value)
+      const formatted = formatCurrency(Math.abs(change), currentCurrency.value)
       return change >= 0 ? `+${formatted}` : `-${formatted}`
     }
 
